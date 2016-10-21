@@ -73,6 +73,5 @@ func home(res http.ResponseWriter, req *http.Request) {
 	}
 	result := PageSpeed{}
 	json.Unmarshal(body, &result)
-	enc := json.NewEncoder(os.Stdout)
-	fmt.Fprintf(res, "%s", enc.Encode(result))
+	fmt.Fprintf(res, "%+v", result)
 }
