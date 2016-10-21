@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
-	"runtime"
 )
 
 func main() {
@@ -18,5 +18,14 @@ func main() {
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(res, "hello, world from %s", runtime.Version())
+	resp, err := http.Get("https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=http://developers.redhat.com")
+	if err != nil {
+
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+
+	}
+	fmt.Fprintf(res, "%s", body)
 }
